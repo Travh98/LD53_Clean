@@ -16,7 +16,7 @@ func on_bot_detection_entered(body: Node3D):
 	else:
 		print("Undesired: ", body.name)
 
-func on_bot_detection_left(body: Node3D):
+func on_bot_detection_left(_body: Node3D):
 	var existing_bodies: Array = $BotDetection.get_overlapping_bodies()
 	if existing_bodies.has(desired_bot):
 		is_bot_on_dock = true

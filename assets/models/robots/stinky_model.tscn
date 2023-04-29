@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cxeq1er482ja1"]
+[gd_scene load_steps=40 format=3 uid="uid://cxb7oba3382q4"]
 
 [ext_resource type="Texture2D" uid="uid://w8fuuo56xbky" path="res://assets/models/robots/ld56_robot_models_bronze-palette-1x.png" id="2_ho58y"]
 [ext_resource type="Texture2D" uid="uid://bis16dr2wuhx0" path="res://assets/models/robots/ld56_robot_models_ComputeBoxFace.png" id="2_tja8t"]

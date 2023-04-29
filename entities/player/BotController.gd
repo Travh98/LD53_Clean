@@ -48,6 +48,7 @@ func do_special(spot: Vector3):
 		return
 	
 	current_robot.set_plunge_to_pos(spot)
+	current_robot.set_shoot_to_pos(spot)
 	current_robot.current_state = ROBOT_ENUMS.ROBOT_STATE.SPECIAL
 	robot_control.set_robot_state(current_robot.current_state)
 

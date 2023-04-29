@@ -4,7 +4,7 @@ class_name Plunger
 signal plunger_landed
 
 const ANGULAR_VELOCITY: float = 5.0
-const SPEED: float = 5.0
+const SPEED: float = 15.0
 const STOP_DIST: float = 0.5
 var destination_pos: Vector3 = Vector3.ZERO
 
