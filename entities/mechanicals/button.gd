@@ -18,6 +18,7 @@ func on_button_pressed(body: Node3D):
 		return
 
 	is_pressed = true
+	$AnimationPlayer.play("button_press")
 	if door1.has_method("toggle_door"):
 		door1.toggle_door()
 	else:
@@ -31,6 +32,7 @@ func on_button_released(_body: Node3D):
 	var existing_bodies: Array = $ld53_mechanics/ButtonStatic/ButtonDetection.get_overlapping_bodies()
 	if existing_bodies.size() == 0:
 		is_pressed = false
+		$AnimationPlayer.play_backwards("button_press")
 		
 	if is_pressed == false:
 		if door1.has_method("toggle_door"):

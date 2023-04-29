@@ -1,6 +1,7 @@
 extends RigidBody3D
 class_name RobotFollower
 
+var plunger_scene = preload("res://entities/robots/plunger.tscn")
 const ROBOT_ENUMS = preload("res://robot_enums.gd")
 
 signal robot_state_changed
@@ -11,14 +12,28 @@ const UPWARDS_ANGULAR_FACTOR : float = 4.0
 const FOLLOW_STOP_DISTANCE : float = 5.0
 const MOVE_TO_STOP_DISTANCE : float = 1.0
 
+const GRAPPLE_TO_STOP_DISTANCE: float = 1.0 
+const GRAPPLE_TO_SPEED: float = 3000.0 
+var has_plunger_landed: bool = false
+var has_plunger_shot: bool = false
+var plunge_to_pos: Vector3 = Vector3.ZERO
+var plunger: Plunger
+
 @export var player: Node3D
 var move_target_pos: Vector3
-
+@onready var audio_stream: AudioStreamPlayer3D = $AudioStreamPlayer3D
 
 var current_state : ROBOT_ENUMS.ROBOT_STATE
 
+enum ROBOT_TYPE {
+	STICKY,
+	SHOOTY,
+	SMELLY
+}
+@export var type: ROBOT_TYPE
+
 func _ready():
-	current_state = ROBOT_ENUMS.ROBOT_STATE.FOLLOW
+	current_state = ROBOT_ENUMS.ROBOT_STATE.STAY
 
 func _physics_process(delta):
 	stay_upwards(delta)
@@ -34,7 +49,41 @@ func _physics_process(delta):
 			# Move to player
 			var direction_to_target: Vector3 = global_position.direction_to(player.global_position)
 			apply_central_force(direction_to_target * ROBOT_SPEED * delta)
+			return
 		ROBOT_ENUMS.ROBOT_STATE.STAY:
+			return
+		ROBOT_ENUMS.ROBOT_STATE.SPECIAL:
+			# dumb but code each specific special right here yep thats right
+			match(type):
+				ROBOT_TYPE.STICKY:
+					if plunge_to_pos == Vector3.ZERO:
+						print("Havent set plunge to pos")
+						return
+					if !has_plunger_shot:
+						plunger = plunger_scene.instantiate()
+						get_parent().add_child(plunger)
+						plunger.plunger_landed.connect(on_plunger_landed)
+						plunger.global_position = global_position + Vector3.UP * 2
+						plunger.destination_pos = plunge_to_pos
+						has_plunger_shot = true
+						return
+					if !has_plunger_landed:
+						return
+					if global_position.distance_to(plunge_to_pos) < GRAPPLE_TO_STOP_DISTANCE:
+						plunger.disconnect("plunger_landed", on_plunger_landed)
+						has_plunger_landed = false
+						has_plunger_shot = false
+						plunger.queue_free()
+						set_robot_command(ROBOT_ENUMS.ROBOT_STATE.STAY)
+					var direction_to_plunger: Vector3 = global_position.direction_to(plunge_to_pos)
+					apply_central_force(direction_to_plunger * GRAPPLE_TO_SPEED * delta)
+					return
+				ROBOT_TYPE.SHOOTY:
+					print("Do the shooty special")
+					return
+				ROBOT_TYPE.SMELLY:
+					print("Do the smelly special")
+					return
 			return
 		ROBOT_ENUMS.ROBOT_STATE.MOVE_TO:
 			rotate_to_pos(move_target_pos, delta)
@@ -46,14 +95,32 @@ func _physics_process(delta):
 			# Move to move_target_pos
 			var direction_to_target: Vector3 = global_position.direction_to(move_target_pos)
 			apply_central_force(direction_to_target * ROBOT_SPEED * delta)
+			return
 	
 func set_move_to_pos(pos: Vector3):
 	move_target_pos = pos
 	
+func set_plunge_to_pos(pos: Vector3):
+	plunge_to_pos = pos
+	
 func set_robot_command(cmd: ROBOT_ENUMS.ROBOT_STATE):
 	current_state = cmd
+	update_audio()
 	emit_signal("robot_state_changed", current_state)
 	
+func update_audio():
+	if audio_stream == null:
+		print("Missing stream player")
+		return
+	
+	match(current_state):
+		ROBOT_ENUMS.ROBOT_STATE.FOLLOW:
+			audio_stream.stream = load("res://assets/soundfx/motor_moving.wav")
+			audio_stream.play()
+
+func on_plunger_landed(pos: Vector3):
+	plunge_to_pos = pos
+	has_plunger_landed = true
 
 func rotate_to_pos(face_to_pos: Vector3, delta: float):
 	# Rotate so helicopter is facing the face_target

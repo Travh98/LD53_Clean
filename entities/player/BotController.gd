@@ -42,6 +42,14 @@ func follow_player():
 	
 	current_robot.current_state = ROBOT_ENUMS.ROBOT_STATE.FOLLOW
 	robot_control.set_robot_state(current_robot.current_state)
+	
+func do_special(spot: Vector3):
+	if current_robot == null:
+		return
+	
+	current_robot.set_plunge_to_pos(spot)
+	current_robot.current_state = ROBOT_ENUMS.ROBOT_STATE.SPECIAL
+	robot_control.set_robot_state(current_robot.current_state)
 
 func on_robot_state_changed(state: ROBOT_ENUMS.ROBOT_STATE):
 	robot_control.set_robot_state(state)

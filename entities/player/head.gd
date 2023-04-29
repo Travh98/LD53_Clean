@@ -44,11 +44,11 @@ func _input(event: InputEvent) -> void:
 		
 	if event.is_action_pressed("command_move_to"):
 		var ray_target = $RayCast3D.get_collision_point()
-		
-		print("Command Move To collider ", ray_target)
 		botCtrl.move_to_location(ray_target)
 		
-
+	if event.is_action_pressed("command_special"):
+		var ray_target = $RayCast3D.get_collision_point()
+		botCtrl.do_special(ray_target)
 
 # Called every physics tick. 'delta' is constant
 func _physics_process(delta: float) -> void:

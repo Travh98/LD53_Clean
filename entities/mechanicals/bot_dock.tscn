@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dprpspkrjfxuv"]
+
+[ext_resource type="PackedScene" uid="uid://dty36dbmm6ycr" path="res://assets/models/mechanicals/botdock.tscn" id="1_41e35"]
+[ext_resource type="Script" path="res://entities/mechanicals/bot_dock.gd" id="1_pksht"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h1028"]
+size = Vector3(3, 1, 3)
+
+[node name="BotDock" type="Node3D"]
+script = ExtResource("1_pksht")
+
+[node name="botdock" parent="." instance=ExtResource("1_41e35")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+
+[node name="BotDetection" type="Area3D" parent="."]
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BotDetection"]
+shape = SubResource("BoxShape3D_h1028")

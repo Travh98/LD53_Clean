@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://dty36dbmm6ycr"]
+
+[ext_resource type="PackedScene" uid="uid://b02b75w2q1dli" path="res://assets/models/mechanicals/botdock.gltf" id="1_g83yx"]
+
+[node name="botdock" instance=ExtResource("1_g83yx")]
