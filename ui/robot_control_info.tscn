@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bsjrtga4k7i56"]
 
-[sub_resource type="Theme" id="Theme_wlo44"]
+[ext_resource type="Script" path="res://ui/robot_control_info.gd" id="1_piefl"]
 
 [node name="RobotControlInfo" type="Control"]
 layout_mode = 3
@@ -13,6 +13,7 @@ offset_left = 24.0
 offset_right = 24.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_piefl")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -23,15 +24,6 @@ offset_bottom = 40.0
 layout_mode = 2
 text = "[Robot]"
 
-[node name="MoveToControl" type="Label" parent="VBoxContainer"]
+[node name="RobotState" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "Move to"
-
-[node name="FollowMeControl" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-text = "Follow me"
-
-[node name="RobotSpecialControl" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-theme = SubResource("Theme_wlo44")
-text = "[Special]"
+text = "Currently [STATE]"

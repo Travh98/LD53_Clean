@@ -1,49 +1,64 @@
 extends RigidBody3D
 class_name RobotFollower
 
-@onready var detection_area: Area3D = $DetectionArea
+const ROBOT_ENUMS = preload("res://robot_enums.gd")
 
-@export var target: Node3D
+signal robot_state_changed
+
 const ROBOT_SPEED: float = 1000.0
 const ANGULAR_VELOCITY: float = 5.0
 const UPWARDS_ANGULAR_FACTOR : float = 4.0
-const TARGET_STOP_DISTANCE : float = 5.0
+const FOLLOW_STOP_DISTANCE : float = 5.0
+const MOVE_TO_STOP_DISTANCE : float = 1.0
+
+@export var player: Node3D
+var move_target_pos: Vector3
+
+
+var current_state : ROBOT_ENUMS.ROBOT_STATE
 
 func _ready():
-	print("Initializing Robot Follower")
-	detection_area.body_entered.connect(on_detection_body_entered)
+	current_state = ROBOT_ENUMS.ROBOT_STATE.FOLLOW
 
 func _physics_process(delta):
 	stay_upwards(delta)
 	
-	if target == null:
-		return
-
-	rotate_to_target(target, delta)
-
-	var distance_to_target: float = global_position.distance_to(target.global_position)
-	if distance_to_target < TARGET_STOP_DISTANCE:
-		return
+	match(current_state):
+		ROBOT_ENUMS.ROBOT_STATE.FOLLOW:
+			# Face the player
+			rotate_to_pos(player.global_position, delta)
+			# Find distance to player
+			var distance_to_target: float = global_position.distance_to(player.global_position)
+			if distance_to_target < FOLLOW_STOP_DISTANCE:
+				return
+			# Move to player
+			var direction_to_target: Vector3 = global_position.direction_to(player.global_position)
+			apply_central_force(direction_to_target * ROBOT_SPEED * delta)
+		ROBOT_ENUMS.ROBOT_STATE.STAY:
+			return
+		ROBOT_ENUMS.ROBOT_STATE.MOVE_TO:
+			rotate_to_pos(move_target_pos, delta)
+			# Find distance to move_target_pos
+			var distance_to_target: float = global_position.distance_to(move_target_pos)
+			if distance_to_target < MOVE_TO_STOP_DISTANCE:
+				set_robot_command(ROBOT_ENUMS.ROBOT_STATE.STAY)
+				return
+			# Move to move_target_pos
+			var direction_to_target: Vector3 = global_position.direction_to(move_target_pos)
+			apply_central_force(direction_to_target * ROBOT_SPEED * delta)
 	
-	var direction_to_target: Vector3 = global_position.direction_to(target.global_position)
-	apply_central_force(direction_to_target * ROBOT_SPEED * delta)
+func set_move_to_pos(pos: Vector3):
+	move_target_pos = pos
+	
+func set_robot_command(cmd: ROBOT_ENUMS.ROBOT_STATE):
+	current_state = cmd
+	emit_signal("robot_state_changed", current_state)
 	
 
-func set_new_target(node: Node3D):
-	target = node
-
-func on_detection_body_entered(body: Node3D):
-	if body.name == self.name:
-		return
-		
-	if target == null:
-		print(self.name, " found target: ", body.name)
-		target = body
-
-func rotate_to_target(face_target: Node3D, delta: float):
+func rotate_to_pos(face_to_pos: Vector3, delta: float):
 	# Rotate so helicopter is facing the face_target
 	var current_direction := -global_transform.basis.z
-	var target_direction := (face_target.transform.origin - global_transform.origin).normalized()
+	var target_direction := (face_to_pos - global_transform.origin).normalized()
 	# Get the axis to rotate on
 	var axis := current_direction.cross(target_direction).normalized()
 	# Make sure its not zero

@@ -10,7 +10,7 @@
 size = Vector3(1, 2, 1)
 
 [node name="Player" type="CharacterBody3D"]
-collision_layer = 3
+collision_layer = 2
 script = ExtResource("1_jcog2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

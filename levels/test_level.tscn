@@ -46,15 +46,17 @@ door1_path = NodePath("../Door")
 [node name="Door" parent="Environment" instance=ExtResource("3_h4tkn")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 19.032, 0.497278, 4.0107)
 
-[node name="Shooty" parent="." node_paths=PackedStringArray("target") instance=ExtResource("2_c48op")]
+[node name="Shooty" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_c48op")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.01825, 1.94686, -4.31593)
-target = NodePath("../Player")
+player = NodePath("../Player")
 
-[node name="Sticky" parent="." instance=ExtResource("1_epxye")]
+[node name="Sticky" parent="." node_paths=PackedStringArray("player") instance=ExtResource("1_epxye")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.21633, 2.59612, 0.457922)
+player = NodePath("../Player")
+
+[node name="Smelly" parent="." node_paths=PackedStringArray("player") instance=ExtResource("7_i1mfd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.96822, 1.6353, -3.68305)
+player = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("4_cqmc3")]
 transform = Transform3D(-0.0441599, 0, -0.999024, 0, 1, 0, 0.999024, 0, -0.0441599, -27.2419, 1, 2.25641)
-
-[node name="Smelly" parent="." instance=ExtResource("7_i1mfd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.96822, 1.6353, -3.68305)

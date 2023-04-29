@@ -3,6 +3,7 @@ extends Node3D
 
 @export_node_path("Camera3D") var cam_path := NodePath("Camera")
 @onready var cam: Camera3D = get_node(cam_path)
+@onready var botCtrl: BotController = $BotController
 
 @export var mouse_sensitivity := 2.0
 @export var y_limit := 90.0
@@ -36,7 +37,17 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("select_robot"):
 		var ray_target = $RayCast3D.get_collider()
 		if ray_target is RobotFollower:
-			$BotController.select_robot(ray_target)
+			botCtrl.select_robot(ray_target)
+			
+	if event.is_action_pressed("command_follow"):
+		botCtrl.follow_player()
+		
+	if event.is_action_pressed("command_move_to"):
+		var ray_target = $RayCast3D.get_collision_point()
+		
+		print("Command Move To collider ", ray_target)
+		botCtrl.move_to_location(ray_target)
+		
 
 
 # Called every physics tick. 'delta' is constant
