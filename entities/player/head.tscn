@@ -1,8 +1,30 @@
-[gd_scene load_steps=2 format=3 uid="uid://tug21o7g3xxc"]
+[gd_scene load_steps=7 format=3 uid="uid://tug21o7g3xxc"]
 
 [ext_resource type="Script" path="res://entities/player/head.gd" id="1_e8tb6"]
+[ext_resource type="PackedScene" uid="uid://esx0yw51hs1n" path="res://ui/crosshair.tscn" id="2_qc6e7"]
+[ext_resource type="PackedScene" uid="uid://bsjrtga4k7i56" path="res://ui/robot_control_info.tscn" id="3_05q3b"]
+[ext_resource type="Script" path="res://ui/robot_control_info.gd" id="4_1bv8j"]
+[ext_resource type="PackedScene" uid="uid://dq1o6jloamsfq" path="res://ui/how_to_control_info.tscn" id="4_iqg5a"]
+[ext_resource type="Script" path="res://entities/player/BotController.gd" id="5_lfi61"]
 
 [node name="Head" type="Node3D"]
 script = ExtResource("1_e8tb6")
 
 [node name="Camera" type="Camera3D" parent="."]
+
+[node name="Crosshair" parent="Camera" instance=ExtResource("2_qc6e7")]
+
+[node name="RobotControlInfo" parent="Camera" instance=ExtResource("3_05q3b")]
+visible = false
+script = ExtResource("4_1bv8j")
+
+[node name="HowToControlInfo" parent="Camera" instance=ExtResource("4_iqg5a")]
+
+[node name="BotController" type="Node" parent="."]
+script = ExtResource("5_lfi61")
+how_to_info_path = NodePath("../Camera/HowToControlInfo")
+robot_control_path = NodePath("../Camera/RobotControlInfo")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -100)
+collision_mask = 4

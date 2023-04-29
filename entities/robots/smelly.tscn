@@ -9,7 +9,7 @@ size = Vector3(2, 2, 2)
 [sub_resource type="SphereShape3D" id="SphereShape3D_44vvh"]
 radius = 12.845
 
-[node name="Stinky" type="RigidBody3D"]
+[node name="Smelly" type="RigidBody3D"]
 collision_layer = 5
 script = ExtResource("1_sf22l")
 

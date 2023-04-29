@@ -29,6 +29,9 @@ func _physics_process(delta):
 	apply_central_force(direction_to_target * ROBOT_SPEED * delta)
 	
 
+func set_new_target(node: Node3D):
+	target = node
+
 func on_detection_body_entered(body: Node3D):
 	if body.name == self.name:
 		return

@@ -32,6 +32,11 @@ func _input(event: InputEvent) -> void:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 		else:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+			
+	if event.is_action_pressed("select_robot"):
+		var ray_target = $RayCast3D.get_collider()
+		if ray_target is RobotFollower:
+			$BotController.select_robot(ray_target)
 
 
 # Called every physics tick. 'delta' is constant
