@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://c87glejc2gjev"]
+
+[ext_resource type="PackedScene" uid="uid://bvgon3b5xsxpm" path="res://assets/models/robots/ld56_robot_models.gltf" id="1_4e2nw"]
+
+[node name="ld56_robot_models" instance=ExtResource("1_4e2nw")]

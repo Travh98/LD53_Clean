@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://tug21o7g3xxc"]
+
+[ext_resource type="Script" path="res://entities/player/head.gd" id="1_e8tb6"]
+
+[node name="Head" type="Node3D"]
+script = ExtResource("1_e8tb6")
+
+[node name="Camera" type="Camera3D" parent="."]

@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://dw7qr3mia1cyd"]
+
+[ext_resource type="Script" path="res://entities/player/player.gd" id="1_jcog2"]
+[ext_resource type="PackedScene" uid="uid://tug21o7g3xxc" path="res://entities/player/head.tscn" id="2_no8p0"]
+[ext_resource type="Script" path="res://entities/player/sprint.gd" id="3_glnw4"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u31q7"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_feu0a"]
+size = Vector3(1, 2, 1)
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_jcog2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_u31q7")
+
+[node name="Head" parent="." instance=ExtResource("2_no8p0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60525, 0)
+
+[node name="Sprint" type="Node" parent="."]
+script = ExtResource("3_glnw4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("BoxMesh_feu0a")

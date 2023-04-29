@@ -1,0 +1,52 @@
+[gd_scene load_steps=10 format=3 uid="uid://bqvgsdpehbgb"]
+
+[ext_resource type="PackedScene" uid="uid://dtrt6i7h361lf" path="res://entities/robots/sticky.tscn" id="1_epxye"]
+[ext_resource type="PackedScene" uid="uid://bu6hcttkj8qmt" path="res://entities/robots/stinky.tscn" id="1_jdmmt"]
+[ext_resource type="PackedScene" uid="uid://bt2euj3t66grb" path="res://entities/robots/shooty.tscn" id="2_c48op"]
+[ext_resource type="PackedScene" uid="uid://dw7qr3mia1cyd" path="res://entities/player/player.tscn" id="4_cqmc3"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_3i0hl"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_jg7hj"]
+points = PackedVector3Array(-10, -0.5, -10, -10, 0.5, -10, 10, -0.5, -10, -10, -0.5, 10, -10, 0.5, 10, 10, 0.5, -10, 10, -0.5, 10, 10, 0.5, 10)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8nik5"]
+
+[sub_resource type="Sky" id="Sky_sui8h"]
+sky_material = SubResource("ProceduralSkyMaterial_8nik5")
+
+[sub_resource type="Environment" id="Environment_fqivg"]
+background_mode = 2
+sky = SubResource("Sky_sui8h")
+
+[node name="TestLevel" type="Node3D"]
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Environment"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/StaticBody3D"]
+mesh = SubResource("BoxMesh_3i0hl")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Environment/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_jg7hj")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_fqivg")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.968266, -0.230999, 0.0953998, 0, 0.381716, 0.92428, -0.249924, -0.894948, 0.369602, 0, 5.05429, 0)
+
+[node name="Stinky" parent="." instance=ExtResource("1_jdmmt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.65634, 0.82785, -4.37887)
+
+[node name="Shooty" parent="." node_paths=PackedStringArray("target") instance=ExtResource("2_c48op")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.01825, 1.94686, -4.31593)
+target = NodePath("../Player")
+
+[node name="Sticky" parent="." instance=ExtResource("1_epxye")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.21633, 2.59612, 0.457922)
+
+[node name="Player" parent="." instance=ExtResource("4_cqmc3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 7.72587)
