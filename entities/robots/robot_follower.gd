@@ -26,7 +26,9 @@ const SHOOT_SPEED: float = 1000.0
 var toast1: RigidBody3D
 var shoot_at_pos: Vector3
 
-
+@onready var check_sound = preload("res://assets/soundfx/check.wav")
+@onready var bloop_sound = preload("res://assets/soundfx/bloop.wav")
+@onready var following_sound = preload("res://assets/soundfx/honkybots_following.wav")
 
 @export var player: Node3D
 var move_target_pos: Vector3
@@ -57,7 +59,7 @@ func _physics_process(delta):
 				return
 			# Move to player
 			var direction_to_target: Vector3 = global_position.direction_to(player.global_position)
-			apply_central_force(direction_to_target * ROBOT_SPEED * delta)
+			robot_stroll_to(direction_to_target, delta)
 			return
 		ROBOT_ENUMS.ROBOT_STATE.STAY:
 			return
@@ -116,7 +118,7 @@ func _physics_process(delta):
 				return
 			# Move to move_target_pos
 			var direction_to_target: Vector3 = global_position.direction_to(move_target_pos)
-			apply_central_force(direction_to_target * ROBOT_SPEED * delta)
+			robot_stroll_to(direction_to_target, delta)
 			return
 	
 func set_move_to_pos(pos: Vector3):
@@ -134,15 +136,22 @@ func set_robot_command(cmd: ROBOT_ENUMS.ROBOT_STATE):
 	destroy_plunger()
 	emit_signal("robot_state_changed", current_state)
 	
+func robot_stroll_to(direction: Vector3, delta: float):
+	apply_central_force(direction * ROBOT_SPEED * delta)
+	
 func update_audio():
 	if audio_stream == null:
-		print("Missing stream player")
 		return
 	
 	match(current_state):
+		ROBOT_ENUMS.ROBOT_STATE.MOVE_TO:
+			audio_stream.stream = check_sound
+		ROBOT_ENUMS.ROBOT_STATE.STAY:
+			audio_stream.stream = bloop_sound
 		ROBOT_ENUMS.ROBOT_STATE.FOLLOW:
-			audio_stream.stream = load("res://assets/soundfx/motor_moving.wav")
-			audio_stream.play()
+			audio_stream.stream = check_sound
+	audio_stream.volume_db = -12
+	audio_stream.play()
 
 func on_plunger_landed(pos: Vector3):
 	plunge_to_pos = pos

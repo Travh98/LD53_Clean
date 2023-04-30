@@ -33,14 +33,14 @@ func move_to_location(spot: Vector3):
 	
 	print("Commanding ", current_robot.name, " to move to: ", spot)
 	current_robot.set_move_to_pos(spot)
-	current_robot.current_state = ROBOT_ENUMS.ROBOT_STATE.MOVE_TO
+	current_robot.set_robot_command(ROBOT_ENUMS.ROBOT_STATE.MOVE_TO)
 	robot_control.set_robot_state(current_robot.current_state)
 
 func follow_player():
 	if current_robot == null:
 		return
 	
-	current_robot.current_state = ROBOT_ENUMS.ROBOT_STATE.FOLLOW
+	current_robot.set_robot_command(ROBOT_ENUMS.ROBOT_STATE.FOLLOW)
 	robot_control.set_robot_state(current_robot.current_state)
 	
 func do_special(spot: Vector3):
@@ -49,7 +49,7 @@ func do_special(spot: Vector3):
 	
 	current_robot.set_plunge_to_pos(spot)
 	current_robot.set_shoot_to_pos(spot)
-	current_robot.current_state = ROBOT_ENUMS.ROBOT_STATE.SPECIAL
+	current_robot.set_robot_command(ROBOT_ENUMS.ROBOT_STATE.SPECIAL)
 	robot_control.set_robot_state(current_robot.current_state)
 
 func on_robot_state_changed(state: ROBOT_ENUMS.ROBOT_STATE):

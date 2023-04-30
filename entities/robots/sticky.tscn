@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dtrt6i7h361lf"]
+[gd_scene load_steps=6 format=3 uid="uid://dtrt6i7h361lf"]
 
 [ext_resource type="Script" path="res://entities/robots/robot_follower.gd" id="1_7iy35"]
 [ext_resource type="PackedScene" uid="uid://cwm5p3b1ydol0" path="res://assets/models/robots/sticky_model.tscn" id="1_fm5fp"]
+[ext_resource type="AudioStream" uid="uid://coekvl2wp4cdt" path="res://assets/music/honkybots_high.wav" id="3_rvdkx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ywh82"]
 size = Vector3(2, 2, 2)
@@ -28,3 +29,8 @@ collision_mask = 6
 shape = SubResource("SphereShape3D_44vvh")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+
+[node name="MusicStreamer" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_rvdkx")
+volume_db = -6.0
+autoplay = true
