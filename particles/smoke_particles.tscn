@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://dmkjryqbuiyvm"]
+
+[ext_resource type="Texture2D" uid="uid://d3g3rysepu1y7" path="res://assets/images/smoke.png" id="1_83rtc"]
+
+[sub_resource type="Gradient" id="Gradient_brdkr"]
+colors = PackedColorArray(0, 0, 0, 1, 0.352941, 0.231373, 0.203922, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mjxk7"]
+gradient = SubResource("Gradient_brdkr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_b5w00"]
+direction = Vector3(0, 1, 0)
+spread = 16.69
+initial_velocity_min = 1.5
+initial_velocity_max = 1.5
+angular_velocity_min = 80.9
+angular_velocity_max = 550.11
+radial_accel_min = 4.49
+radial_accel_max = 4.49
+color_ramp = SubResource("GradientTexture1D_mjxk7")
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jje6r"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 1, 0.839216)
+albedo_texture = ExtResource("1_83rtc")
+texture_filter = 0
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_8hn58"]
+material = SubResource("StandardMaterial3D_jje6r")
+size = Vector2(0.5, 0.5)
+
+[node name="SmokeParticles" type="GPUParticles3D"]
+lifetime = 3.0
+process_material = SubResource("ParticleProcessMaterial_b5w00")
+draw_pass_1 = SubResource("QuadMesh_8hn58")

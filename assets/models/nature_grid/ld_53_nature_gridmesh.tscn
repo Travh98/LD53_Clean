@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsl4giovs3urv"]
+
+[ext_resource type="PackedScene" uid="uid://fqw1ims1xco6" path="res://assets/models/nature_grid/ld53_nature_gridmesh.gltf" id="1_wthu7"]
+
+[node name="ld53_nature_gridmesh" instance=ExtResource("1_wthu7")]

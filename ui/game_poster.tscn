@@ -1,0 +1,65 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3eyphlimdvx5"]
+
+[ext_resource type="Texture2D" uid="uid://cqni6smnawrm7" path="res://assets/images/wonkybots_cover.png" id="1_pnhce"]
+
+[node name="GamePoster" type="SubViewport"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_pnhce")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 55.0
+offset_top = 52.0
+offset_right = 695.0
+offset_bottom = 119.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/font_size = 64
+text = "WONKY BOTS"
+
+[node name="Label2" type="Label" parent="CanvasLayer"]
+offset_left = 163.0
+offset_top = 499.0
+offset_right = 803.0
+offset_bottom = 580.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/font_size = 24
+text = "STICKY
+- Special: 
+  Grapple"
+
+[node name="Label3" type="Label" parent="CanvasLayer"]
+offset_left = 422.0
+offset_top = 474.0
+offset_right = 1062.0
+offset_bottom = 555.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/font_size = 24
+text = "SHOOTY
+- Special: 
+  None Yet"
+
+[node name="Label4" type="Label" parent="CanvasLayer"]
+offset_left = 691.0
+offset_top = 491.0
+offset_right = 1331.0
+offset_bottom = 599.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_constants/shadow_outline_size = 15
+theme_override_font_sizes/font_size = 24
+text = "SMELLY
+- Special: 
+  None but we
+  still love him"

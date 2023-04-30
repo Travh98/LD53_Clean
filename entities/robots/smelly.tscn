@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bu6hcttkj8qmt"]
+[gd_scene load_steps=7 format=3 uid="uid://bu6hcttkj8qmt"]
 
 [ext_resource type="Script" path="res://entities/robots/robot_follower.gd" id="1_sf22l"]
 [ext_resource type="PackedScene" uid="uid://cxb7oba3382q4" path="res://assets/models/robots/stinky_model.tscn" id="3_2s44w"]
 [ext_resource type="AudioStream" uid="uid://wo0vm2b6wm40" path="res://assets/music/honkybots_low.wav" id="3_lfcfe"]
+[ext_resource type="PackedScene" uid="uid://dmkjryqbuiyvm" path="res://particles/smoke_particles.tscn" id="4_5cuky"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ywh82"]
 size = Vector3(2, 2, 2)
@@ -37,3 +38,21 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 stream = ExtResource("3_lfcfe")
 volume_db = -6.0
 autoplay = true
+
+[node name="SmokeParticles" parent="." instance=ExtResource("4_5cuky")]
+transform = Transform3D(0.953027, -0.302886, 0, 0.302886, 0.953027, 0, 0, 0, 1, -0.428484, 1.33062, -0.167451)
+
+[node name="SmokeParticles5" parent="." instance=ExtResource("4_5cuky")]
+transform = Transform3D(-0.952844, 0.302827, -0.0195813, 0.302886, 0.953027, 0, 0.0186615, -0.00593089, -0.999808, 0.38448, 1.32811, -0.167451)
+
+[node name="SmokeParticles6" parent="." instance=ExtResource("4_5cuky")]
+transform = Transform3D(-0.591058, 0.187847, 0.784452, 0.302886, 0.953027, -5.83568e-10, -0.747604, 0.237599, -0.62019, 0.38448, 1.24272, 0.135949)
+
+[node name="SmokeParticles2" parent="." instance=ExtResource("4_5cuky")]
+transform = Transform3D(0.935564, -0.174774, 0.306878, 0.283074, 0.890689, -0.355727, -0.211161, 0.419675, 0.882771, -0.340135, 1.19744, 0.284861)
+
+[node name="SmokeParticles3" parent="." instance=ExtResource("4_5cuky")]
+transform = Transform3D(0.554257, -0.811015, -0.187227, 0.814548, 0.574773, -0.0784082, 0.171203, -0.109047, 0.979182, -0.830575, 0.759274, 0.28404)
+
+[node name="SmokeParticles4" parent="." instance=ExtResource("4_5cuky")]
+transform = Transform3D(-0.496768, 0.760938, 0.417367, 0.814548, 0.574773, -0.0784081, -0.299555, 0.301015, -0.905349, 0.890388, 0.776147, 0.354446)

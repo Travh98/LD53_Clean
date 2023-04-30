@@ -137,7 +137,7 @@ func set_robot_command(cmd: ROBOT_ENUMS.ROBOT_STATE):
 	emit_signal("robot_state_changed", current_state)
 	
 func robot_stroll_to(direction: Vector3, delta: float):
-	apply_central_force(direction * ROBOT_SPEED * delta)
+	apply_central_force(direction * Vector3(1, 0.2, 1) * ROBOT_SPEED * delta)
 	
 func update_audio():
 	if audio_stream == null:
